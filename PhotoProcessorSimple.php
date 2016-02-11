@@ -1,6 +1,8 @@
 <?php
 
-class PhotoProcessorSimple
+require_once 'PhotoProcessor.php';
+
+class PhotoProcessorSimple extends PhotoProcessor
 {
 
     protected $validPromotionCode = 'N56M2';
@@ -35,12 +37,10 @@ class PhotoProcessorSimple
                                                 'matte' => 0.04,
                                             ],
                                             'processing' => [
-                                                'small' => 1.00,
-                                                'large' => 1.50,
+                                                'oneDay' => 1.00,
+                                                'oneHour' => 1.50,
                                             ]
                                         ];
-
-    protected $promotionCodeDiscount = 2.50;
 
     public function __construct($data)
     {
@@ -77,27 +77,6 @@ class PhotoProcessorSimple
         $this->processingTime = $time;
     }
 
-    public function getTotal()
-    {
-        $size               = $this->getOrderSize();
-        $pricePerPhoto      = $this->pricesArray[$this->photoSize][$size];
-        $quantity           = $this->photoQuantity;
-        $priceBeforeMatte   = $pricePerPhoto * $quantity;
-        $mattePricePerPhoto = $this->pricesArray[$this->photoSize]['matte'];
-        $mattePrice         = ( $this->photoFinish == 'Matte' ? ($quantity * $mattePricePerPhoto) : 0 );
-        $price              = $mattePrice + $priceBeforeMatte;
-
-        if ($this->processingTime == 'oneHour') {
-            $price += $this->pricesArray['processing'][$this->getProcessingOrderSize()];
-        }
-
-        if ($this->isValidPromotionCode()) {
-            $price -= $this->promotionCodeDiscount;
-        }
-
-        return $price;
-    }
-
     protected function isValidPromotionCode()
     {
         return ($this->promotionCode == $this->validPromotionCode && $this->photoQuantity >= 100 );
@@ -128,5 +107,59 @@ class PhotoProcessorSimple
         return $size;
     }
 
+    protected function getMattePrice()
+    {
+        $mattePrice = 0;
+        if ($this->photoFinish == 'Matte') {
+            $mattePrice = $this->pricesArray[$this->photoSize]['matte'];
+        }
 
+        return $mattePrice * $this->photoQuantity;
+    }
+
+    protected function getPrice()
+    {
+        list($large, $medium, $small) = $this->getParts($this->photoQuantity);
+
+        $prices[] = ($small * $this->pricesArray[$this->photoSize]['small']);
+
+        $prices[] = ($medium * $this->pricesArray[$this->photoSize]['medium']); 
+
+        $prices[] = ($large * $this->pricesArray[$this->photoSize]['large']); 
+
+        $prices[] = $this->getMattePrice();
+
+        $prices[] = $this->getProcessingPrice();
+
+        return array_sum($prices);
+
+    }
+
+    public function getTotal()
+    {
+        return $this->getPrice() - $this->getDiscount();
+    }
+
+
+    protected function getProcessingPrice()
+    {
+        return $this->pricesArray['processing'][$this->processingTime];
+    }
+
+    protected function getDiscount()
+    {
+        $price = $this->getPrice();
+
+        $discount[] = 0;
+
+        if ($price >= 35) {
+            $discount[] = $price * 0.05;
+        }
+
+        if ($this->isValidPromotionCode()) {
+            $discount[] = 2;
+        }
+
+        return max($discount);
+    }
 }

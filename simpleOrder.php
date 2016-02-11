@@ -47,7 +47,7 @@
           <div class="col-md-4">
             <select id="processingTime" name="processingTime" class="form-control">
               <option value="oneHour">One Hour</option>
-              <option value="nextDay">Next Day</option>
+              <option value="oneDay">Next Day</option>
             </select>
           </div>
         </div>
