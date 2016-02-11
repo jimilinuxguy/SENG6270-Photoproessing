@@ -6,7 +6,7 @@ class TestPhotoProcessorSimple extends PHPUnit_Framework_TestCase
 {
 
 
-    public function testSimpleLowerBoundNoOptions()
+    public function testSimpleBoundsNoOptions()
     {
 
         $data = new stdClass();
@@ -35,6 +35,11 @@ class TestPhotoProcessorSimple extends PHPUnit_Framework_TestCase
         $data->photoQuantity = 80;
         $photoProcessor = new PhotoProcessorSimple($data);
         $this->assertEquals(11.5, $photoProcessor->getTotal());
+
+
+        $data->photoQuantity = 100;
+        $photoProcessor = new PhotoProcessorSimple($data);
+        $this->assertEquals(13.5, $photoProcessor->getTotal()); // This one qualifies for the 5% discount.
 
 
     }
