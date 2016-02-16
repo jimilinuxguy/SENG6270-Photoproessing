@@ -22,3 +22,5 @@ Unit tests can be ran by issuing "phpunit TestFileName.php" in the tests/ direct
 For additional information on installing composer see the [composer documentation](https://getcomposer.org/doc/01-basic-usage.md). For information on writing PHPUnit tests see the [phpunit documentation](https://phpunit.de/manual/current/en/)
 
 Composer installation instructions can be found here for [Windows](https://getcomposer.org/doc/00-intro.md#installation-windows) users and here for the rest of us [cool guys](https://getcomposer.org/doc/00-intro.md#installation-linux-unix-osx) running linux, unix or mac.
+
+PHP installation instructions can be found here for [Windows](http://php.net/manual/en/install.windows.manual.php) users, here for [Unix/Linux](http://php.net/manual/en/install.unix.php) users, and here for [Mac OSX](http://php.net/manual/en/install.macosx.php) users.
