@@ -20,3 +20,5 @@ After composer installs, you can launch the application by issuing "php -S 127.0
 Unit tests can be ran by issuing "phpunit TestFileName.php" in the tests/ directory.
 
 For additional information on installing composer see the [composer documentation](https://getcomposer.org/doc/01-basic-usage.md). For information on writing PHPUnit tests see the [phpunit documentation](https://phpunit.de/manual/current/en/)
+
+Composer installation instructions can be found here for [Windows](https://getcomposer.org/doc/00-intro.md#installation-windows) users and here for the rest of us [cool guys](https://getcomposer.org/doc/00-intro.md#installation-linux-unix-osx) running linux, unix or mac.
