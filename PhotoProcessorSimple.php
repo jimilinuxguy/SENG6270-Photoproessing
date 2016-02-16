@@ -5,7 +5,7 @@ require_once 'PhotoProcessor.php';
 class PhotoProcessorSimple extends PhotoProcessor
 {
 
-    protected $validPromotionCode = 'N56M2';
+    
 
     protected $promotionCode;
 
@@ -146,20 +146,5 @@ class PhotoProcessorSimple extends PhotoProcessor
         return $this->pricesArray['processing'][$this->processingTime];
     }
 
-    protected function getDiscount()
-    {
-        $price = $this->getPrice();
 
-        $discount[] = 0;
-
-        if ($price >= 35) {
-            $discount[] = $price * 0.05;
-        }
-
-        if ($this->isValidPromotionCode()) {
-            $discount[] = 2;
-        }
-
-        return max($discount);
-    }
 }

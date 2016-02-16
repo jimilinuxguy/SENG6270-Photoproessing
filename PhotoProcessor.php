@@ -15,6 +15,7 @@ abstract class PhotoProcessor
     abstract protected function getTotal();
     abstract protected function getMattePrice();
 
+    protected $validPromotionCode = 'N56M2';
 
     protected function getParts($quantity)
     {
@@ -27,5 +28,34 @@ abstract class PhotoProcessor
             $data = [ 0, ($quantity - 50), 50];
         }
         return $data;
+    }
+
+    protected function getDiscount()
+    {
+        $price = $this->getPrice();
+
+        $discount[] = 0;
+
+        if ($price >= 35) {
+            $discount[] = $price * 0.05;
+        }
+
+        if ($this->isValidPromotionCode()) {
+            $discount[] = 2;
+        }
+
+        return max($discount);
+    }
+
+
+    public function getDiscountMessage()
+    {
+        $discount = $this->getDiscount();
+
+        if (!empty($discount)) {
+            return 'A discount in the amount of $' . $discount . ' was applied.';
+        } else {
+            return 'No discount applied';
+        }
     }
 }
