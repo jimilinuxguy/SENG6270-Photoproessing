@@ -37,7 +37,7 @@ class PhotoProcessorSimple extends PhotoProcessor
                                                 'matte' => 0.04,
                                             ],
                                             'processing' => [
-                                                'oneDay' => 1.00,
+                                                'oneDay' => 0.00,
                                                 'oneHour' => 1.50,
                                             ]
                                         ];
