@@ -22,7 +22,7 @@ class PhotoProcessorSimple extends PhotoProcessor
                                                 'small' => 0.14, 
                                                 'medium' => 0.12, 
                                                 'large' => 0.10,
-                                            'matte' => 0.12,
+                                            'matte' => 0.02,
                                             ],
                                             '5x7' => [
                                                 'small' => 0.34, 
@@ -38,7 +38,7 @@ class PhotoProcessorSimple extends PhotoProcessor
                                             ],
                                             'processing' => [
                                                 'oneDay' => 0.00,
-                                                'oneHour' => 1.50,
+                                                'oneHour' => 1.00,
                                             ]
                                         ];
 
@@ -143,7 +143,13 @@ class PhotoProcessorSimple extends PhotoProcessor
 
     protected function getProcessingPrice()
     {
-        return $this->pricesArray['processing'][$this->processingTime];
+        $processingTime = $this->pricesArray['processing'][$this->processingTime];
+
+        if ($this->photoQuantity > 60 && $this->processingTime == 'oneHour') {
+            $processingTime += 0.50;
+        }
+
+        return $processingTime;
     }
 
 
