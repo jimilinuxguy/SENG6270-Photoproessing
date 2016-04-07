@@ -45,6 +45,9 @@ class PhotoProcessorComplex extends PhotoProcessor
 
     public function getTotal()
     {
+        if ($this->getOrderSize() > 100 ) {
+            return 'Order cannot excede 100 units';
+        }
         return number_format($this->getPrice() - $this->getDiscount(), 2);
     }
 
