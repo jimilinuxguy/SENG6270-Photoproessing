@@ -81,7 +81,7 @@ class PhotoProcessorComplex extends PhotoProcessor
 
     protected function getProcessingPrice()
     {
-        if ($this->getOrderSize() == 0 ) {
+        if ($this->processingTime != 'oneHour') {
             return 0;
         } else if ($this->getOrderSize() <= 60) {
             return 2;
